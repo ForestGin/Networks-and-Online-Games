@@ -5,63 +5,77 @@ using System;
 using System.Threading;
 
 public class Threads : MonoBehaviour
-{
+{   
 
-    GameObject CubeObject;
-
-    Vector3 pos;
-    float movement_speed = 2f;
+    
+   
+    bool killCube = false;
+    bool isAlive = false;
+    GameObject cube;
 
     // Start is called before the first frame update
     void Start()
     {
-        CubeObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        lock(CubeObject)
+         
+
+        if (Input.GetMouseButtonDown(0) && !isAlive)
         {
-            CubeObject.transform.position = pos;
+            Debug.Log("Click");          
+
+            
+            cube = SpawnCube();
+            Thread myThread = new Thread(KillCube);
+            myThread.Start();        
+                       
+                   
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Key Down");
+        if(isAlive)
+            cube.transform.Translate(Vector3.forward * Time.deltaTime);
 
-            Thread myThread = new Thread(MoveObject);
-            myThread.Start();     
+        if (killCube)
+        {
+            Destroy(cube);
             
-            Debug.Log("Finished Key Down");
         }
 
     }
     
-
-    public void MoveObject()
+    GameObject SpawnCube()
     {
-        Debug.LogWarning("Starting Moving Thread");
+        Debug.Log("Spawning Cube");
+        killCube = false;
+        isAlive = true;
+        return GameObject.CreatePrimitive(PrimitiveType.Cube);
+    }
+
+    public void KillCube()
+    {
+        Debug.LogWarning("Starting Kiling Thread");
         System.DateTime myTime;
 
-        Vector3 speed = new Vector3(0f, 0f, 2f);
+       
 
         myTime = System.DateTime.UtcNow;
-        while((System.DateTime.UtcNow-myTime).Seconds < 5f)
+        while ((System.DateTime.UtcNow - myTime).Seconds < 5f)
         {
-            //translate object
-            lock (CubeObject)
-            {
-                pos += Vector3.forward * movement_speed;
-            }
-            
+           
+          
         }
 
         Debug.Log("5s passed");
+        isAlive = false;
+        killCube = true;
 
-        Debug.Log("Finished Thread");
+        Debug.Log("Finished Thread");        
     }
 
-    
+
 }
