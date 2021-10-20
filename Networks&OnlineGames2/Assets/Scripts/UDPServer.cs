@@ -15,7 +15,7 @@ public class UDPServer : MonoBehaviour
     private Socket socket;
     private IPEndPoint ipep;
     private EndPoint remote;
-    String input, stringData;
+    String stringData;
 
     bool kill = false;
 
@@ -26,10 +26,9 @@ public class UDPServer : MonoBehaviour
         ipep = new IPEndPoint(IPAddress.Any, 9050);//local IP
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         socket.Bind(ipep);
-        /*String starting =*/
+        
         Debug.Log("Waiting for the Client...");
-        //data = Encoding.ASCII.GetBytes(starting);
-        //socket.SendTo(data, data.Length, SocketFlags.None, ipep);
+        
 
         IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
         remote = (EndPoint)sender;
@@ -47,7 +46,7 @@ public class UDPServer : MonoBehaviour
         if (kill && !listener.IsAlive)
         {
 
-            listener = null;
+            listener = null;            
             Debug.Log("Thread closed");
             kill = false;
             socket.Close();
@@ -60,7 +59,7 @@ public class UDPServer : MonoBehaviour
         {
             data = new byte[1024];
             int recv = socket.ReceiveFrom(data, ref remote);
-            Debug.Log("Message recieve form:" + remote.ToString());
+            Debug.Log("Message recieved form:" + remote.ToString());
             Debug.Log(Encoding.ASCII.GetString(data, 0, recv));
 
             int i = 0;
@@ -81,6 +80,8 @@ public class UDPServer : MonoBehaviour
                 }
             }
 
+            Debug.Log("thread Alive:" + listener.IsAlive);
+
         }
         catch (ThreadInterruptedException exception)
         {
@@ -96,6 +97,13 @@ public class UDPServer : MonoBehaviour
     void RequestKillThread()
     {
         kill = true;
+
+    }
+
+    void OnApplicationQuit()
+    {
+        RequestKillThread();
+        Debug.Log("Application ending after " + Time.time + " seconds");
 
     }
 

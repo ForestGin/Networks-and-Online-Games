@@ -15,7 +15,7 @@ public class UDPClient : MonoBehaviour
 
     int recv;
     byte[] data;
-    String input, stringData;
+    String stringData;
     IPEndPoint ipep;
     Socket server;
     EndPoint Remote;
@@ -33,7 +33,7 @@ public class UDPClient : MonoBehaviour
 
         server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);//defining socket and protocol 
 
-        String welcome = "hello???";
+        String welcome = "Client sending to the server...";
         data = Encoding.ASCII.GetBytes(welcome);//encode initial message
         server.SendTo(data, data.Length, SocketFlags.None, ipep);
 
@@ -43,7 +43,7 @@ public class UDPClient : MonoBehaviour
 
         if (listener == null)
         {
-            listener = new Thread(ListenForMessages);
+            listener = new Thread(Listen);
             listener.Start();
 
         }
@@ -56,7 +56,7 @@ public class UDPClient : MonoBehaviour
         if (kill && !listener.IsAlive)
         {
 
-            listener = null;
+            listener = null;            
             Debug.Log("Thread closed");
             kill = false;
             server.Close();
@@ -68,7 +68,7 @@ public class UDPClient : MonoBehaviour
     }
 
 
-    void ListenForMessages()
+    void Listen()
     {
 
 
@@ -102,10 +102,7 @@ public class UDPClient : MonoBehaviour
 
                 }
 
-            }
-
-            //listener.Abort();
-
+            }                       
 
             Debug.Log("thread Alive:" + listener.IsAlive);
         }
@@ -122,6 +119,13 @@ public class UDPClient : MonoBehaviour
     void RequestKillThread()
     {
         kill = true;
+
+    }
+
+    void OnApplicationQuit()
+    {
+        RequestKillThread();
+        Debug.Log("Application ending after " + Time.time + " seconds");
 
     }
 
