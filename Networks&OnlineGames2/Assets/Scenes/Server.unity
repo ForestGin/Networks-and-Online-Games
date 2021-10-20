@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7ac285d7e0bb84c80915653faaf218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BacklogClientQueue: 2
 --- !u!4 &1769887526
 Transform:
   m_ObjectHideFlags: 0

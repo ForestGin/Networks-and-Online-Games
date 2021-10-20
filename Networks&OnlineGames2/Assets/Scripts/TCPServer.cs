@@ -15,7 +15,7 @@ public class TCPServer : MonoBehaviour
     private Socket socket;
     private IPEndPoint ipep;
     String stringData;
-    int BacklogClientQueue;
+    public int BacklogClientQueue;
     int PingPongIteration;
 
     void Start()
@@ -24,7 +24,7 @@ public class TCPServer : MonoBehaviour
         ipep = new IPEndPoint(IPAddress.Any, 9050);//local IP
         socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socket.Bind(ipep);
-        BacklogClientQueue = 5;
+        //BacklogClientQueue = 5;
         socket.Listen(BacklogClientQueue);
         PingPongIteration = 5;//Times the client and server will send Ping/Pong communication
         Debug.Log("Waiting for the Client...");
