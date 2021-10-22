@@ -51,6 +51,8 @@ public class UDPServer : MonoBehaviour
             kill = false;
             socket.Close();
         }
+
+        
     }
 
     void Listen()
@@ -80,7 +82,10 @@ public class UDPServer : MonoBehaviour
                 }
             }
 
-            Debug.Log("thread Alive:" + listener.IsAlive);
+            Debug.Log("Disconnecting from server...");
+            socket.Shutdown(SocketShutdown.Both);
+            socket.Close();
+            
 
         }
         catch (ThreadInterruptedException exception)

@@ -26,7 +26,7 @@ public class TCPServer : MonoBehaviour
         socket.Bind(ipep);
         //BacklogClientQueue = 5;
         socket.Listen(BacklogClientQueue);
-        PingPongIteration = 5;//Times the client and server will send Ping/Pong communication
+        PingPongIteration = 5;
         Debug.Log("Waiting for the Client...");
        
         //start the thread
@@ -37,7 +37,6 @@ public class TCPServer : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
        
@@ -50,8 +49,8 @@ public class TCPServer : MonoBehaviour
             for (int i = 0; i < BacklogClientQueue; i++)
             {
 
-                Socket client = socket.Accept(); //the new socket cannot be use again to Accept the next queue connection 
-                IPEndPoint clientep = (IPEndPoint)client.RemoteEndPoint;//Socket.RemoteEndPoint return a object Endpoint with the IP and port number
+                Socket client = socket.Accept(); 
+                IPEndPoint clientep = (IPEndPoint)client.RemoteEndPoint;
 
                 Debug.Log("Connected with " + clientep.Address + "at port " + clientep.Port);
 
@@ -65,9 +64,9 @@ public class TCPServer : MonoBehaviour
                 while (z < PingPongIteration)
                 {
                     data = new byte[1024];
-                    recv = client.Receive(data);//blocks
+                    recv = client.Receive(data);
                     if (recv == 0)
-                    {//if client send 0 byte lenght data then disconnect  
+                    {  
 
                         break;
 

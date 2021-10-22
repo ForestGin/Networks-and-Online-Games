@@ -21,18 +21,16 @@ public class UDPClient : MonoBehaviour
     bool kill = false;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
 
         data = new byte[1024];
         ipep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);//Defining local IP
 
-        server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);//defining socket and protocol 
+        server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         
-        //String welcome = "Waiting for the server..";
-        //data = Encoding.ASCII.GetBytes(welcome);//encode initial message
-        //server.SendTo(data, data.Length, SocketFlags.None, ipep);
+        
 
         IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
         Remote = (EndPoint)sender;
@@ -61,7 +59,7 @@ public class UDPClient : MonoBehaviour
 
 
 
-
+       
     }
 
 
@@ -73,7 +71,7 @@ public class UDPClient : MonoBehaviour
         {
 
             String welcome = "Waiting for the server..";
-            data = Encoding.ASCII.GetBytes(welcome);//encode initial message
+            data = Encoding.ASCII.GetBytes(welcome);
             server.SendTo(data, data.Length, SocketFlags.None, ipep);
 
 
@@ -107,10 +105,12 @@ public class UDPClient : MonoBehaviour
 
             }
 
-            
 
+            Debug.Log("Disconnecting from server...");
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
 
-            Debug.Log("thread Alive:" + listener.IsAlive);
+           
         }
         catch (ThreadInterruptedException exception)
         {

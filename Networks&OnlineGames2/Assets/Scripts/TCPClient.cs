@@ -28,7 +28,7 @@ public class TCPClient : MonoBehaviour
         try
         {
 
-            server.Connect(ipep);//establishes a network connection between LocalEndPoint and the specified remote endpoint
+            server.Connect(ipep);
             Debug.Log("Connected with server");
             listener = new Thread(Listen);
             listener.Start();
@@ -77,7 +77,7 @@ public class TCPClient : MonoBehaviour
         }
 
         Debug.Log("Disconnecting from server...");
-        server.Shutdown(SocketShutdown.Both); //This ensures that all data is sent and received on the connected socket before it is closed.
+        server.Shutdown(SocketShutdown.Both); 
         server.Close();
 
 
