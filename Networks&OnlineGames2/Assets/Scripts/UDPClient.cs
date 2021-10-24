@@ -85,6 +85,7 @@ public class UDPClient : MonoBehaviour
 
             Debug.Log("Message recieve form:" + Remote.ToString());
             Debug.Log(Encoding.ASCII.GetString(data, 0, recv));
+            printpong = true;
 
 
 
