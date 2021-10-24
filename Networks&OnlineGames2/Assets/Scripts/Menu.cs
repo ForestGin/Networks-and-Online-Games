@@ -7,13 +7,13 @@ public class Menu : MonoBehaviour
 {
     public void ChangeToScene(string sceneName)
     {
-        Debug.Log("Changing to Scene...");
+        Debug.Log("Changing to " + sceneName + "Scene");
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
     public void ExitGame()
     {
-        Debug.Log("Changing to Scene...");
+        Debug.Log("Exitting Game...");
         Application.Quit();
     }
 }
