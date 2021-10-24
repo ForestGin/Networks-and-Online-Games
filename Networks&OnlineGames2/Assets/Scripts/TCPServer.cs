@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 
 public class TCPServer : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class TCPServer : MonoBehaviour
     public int BacklogClientQueue;
     int PingPongIteration;
 
+    public TextMeshProUGUI TextBubble;
+    bool printping = false;
+
     void Start()
     {
         data = new byte[1024];
@@ -28,7 +32,8 @@ public class TCPServer : MonoBehaviour
         socket.Listen(BacklogClientQueue);
         PingPongIteration = 5;
         Debug.Log("Waiting for the Client...");
-       
+        TextBubble.text = "Waiting for the Client...\n";
+
         //start the thread
         if (listener == null)
         {
@@ -39,7 +44,11 @@ public class TCPServer : MonoBehaviour
 
     void Update()
     {
-       
+        if (printping == true)
+        {
+            TextBubble.text += "Ping" + "\n";
+            printping = false;
+        }
     }
 
     void ListenMessages()
@@ -73,6 +82,8 @@ public class TCPServer : MonoBehaviour
                     }
                     stringData = Encoding.ASCII.GetString(data, 0, recv);
                     Debug.Log(stringData);
+                    printping = true;
+               
                     client.Send(Encoding.ASCII.GetBytes("Pong"), SocketFlags.None);
                     z++;
                     Thread.Sleep(1000);

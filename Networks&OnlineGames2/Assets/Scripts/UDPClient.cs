@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 
 public class UDPClient : MonoBehaviour
 {
@@ -20,8 +21,9 @@ public class UDPClient : MonoBehaviour
     Thread listener = null;
     bool kill = false;
 
+    public TextMeshProUGUI TextBubble;
+    bool printpong = false;
 
-    
     void Start()
     {
 
@@ -53,13 +55,16 @@ public class UDPClient : MonoBehaviour
 
             listener = null;
             Debug.Log("Thread closed");
+            TextBubble.text = "Thread closed\n";
             kill = false;
             server.Close();
         }
 
-
-
-       
+        if (printpong == true)
+        {
+            TextBubble.text += "Pong" + "\n";
+            printpong = false;
+        }
     }
 
 
@@ -95,7 +100,7 @@ public class UDPClient : MonoBehaviour
                 Debug.Log(stringData);
                 i++;
                 Thread.Sleep(1000);
-
+                printpong = true;
                 if (i == 5)
                 {
 

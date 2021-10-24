@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 
 public class TCPClient : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class TCPClient : MonoBehaviour
     int recv;
 
     Thread listener;
+
+    public TextMeshProUGUI TextBubble;
+    bool printpong = false;
 
     void Start()
     {
@@ -30,6 +34,7 @@ public class TCPClient : MonoBehaviour
 
             server.Connect(ipep);
             Debug.Log("Connected with server");
+            TextBubble.text = "Connected with server\n";
             listener = new Thread(Listen);
             listener.Start();
 
@@ -38,6 +43,7 @@ public class TCPClient : MonoBehaviour
         {
 
             Debug.Log("Unable to connect to server.");
+            TextBubble.text = "Unable to connect to server\n";
             Debug.Log(e.ToString());
             return;
         }
@@ -48,7 +54,11 @@ public class TCPClient : MonoBehaviour
 
     void Update()
     {
-
+        if (printpong == true)
+        {
+            TextBubble.text += "Pong" + "\n";
+            printpong = false;
+        }
     }
 
     void Listen()
@@ -71,6 +81,7 @@ public class TCPClient : MonoBehaviour
             data = new byte[1024];
             recv = server.Receive(data);
             stringData = Encoding.ASCII.GetString(data, 0, recv);
+            printpong = true;
             Debug.Log(stringData);
             i++;
             Thread.Sleep(1000);

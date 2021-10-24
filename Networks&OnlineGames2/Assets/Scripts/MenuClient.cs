@@ -14,6 +14,9 @@ public class MenuClient : MonoBehaviour
     public GameObject ChangeModeButton;
     public GameObject ChangeTypeButton;
 
+    public GameObject Text;
+    public GameObject TextBubble;
+
     public void SelectClientType(string servertype)
     {
         Debug.Log("Selecting " + servertype + "server");
@@ -28,6 +31,9 @@ public class MenuClient : MonoBehaviour
 
             ChangeTypeButton.SetActive(true);
             ChangeModeButton.SetActive(false);
+
+            Text.SetActive(false);
+            TextBubble.SetActive(true);
         }
 
         if (servertype == "TCP")
@@ -40,23 +46,26 @@ public class MenuClient : MonoBehaviour
 
             ChangeTypeButton.SetActive(true);
             ChangeModeButton.SetActive(false);
+
+            Text.SetActive(false);
+            TextBubble.SetActive(true);
         }
     }
 
-    public void ChangeClientType()
-    {
-        Debug.Log("Back to selecting type");
+    //public void ChangeClientType()
+    //{
+    //    Debug.Log("Back to selecting type");
 
-        UDPClient.SetActive(false);
-        TCPClient.SetActive(false);
-        // TODO DISCONNECT SERVERS
+    //    UDPClient.SetActive(false);
+    //    TCPClient.SetActive(false);
+    //    // TODO DISCONNECT SERVERS
 
-        UDPButton.SetActive(true);
-        TCPButton.SetActive(true);
+    //    UDPButton.SetActive(true);
+    //    TCPButton.SetActive(true);
 
-        ChangeTypeButton.SetActive(false);
-        ChangeModeButton.SetActive(true);
-    }
+    //    ChangeTypeButton.SetActive(false);
+    //    ChangeModeButton.SetActive(true);
+    //}
 
     public void ChangeMode(string sceneName)
     {
@@ -64,7 +73,6 @@ public class MenuClient : MonoBehaviour
 
         UDPClient.SetActive(false);
         TCPClient.SetActive(false);
-        // TODO DISCONNECT SERVERS
 
         UDPButton.SetActive(true);
         TCPButton.SetActive(true);
@@ -72,6 +80,15 @@ public class MenuClient : MonoBehaviour
         ChangeTypeButton.SetActive(false);
         ChangeModeButton.SetActive(true);
 
+        Text.SetActive(true);
+        TextBubble.SetActive(false);
+
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exitting Game...");
+        Application.Quit();
     }
 }

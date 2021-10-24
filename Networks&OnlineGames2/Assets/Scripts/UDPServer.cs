@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using TMPro;
 
 public class UDPServer : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class UDPServer : MonoBehaviour
 
     bool kill = false;
 
+    public TextMeshProUGUI TextBubble;
+    bool printping = false;
+
 
     void Start()
     {
@@ -28,7 +32,8 @@ public class UDPServer : MonoBehaviour
         socket.Bind(ipep);
         
         Debug.Log("Waiting for the Client...");
-        
+        TextBubble.text = "Waiting for the Client...\n";
+
 
         IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
         remote = (EndPoint)sender;
@@ -48,11 +53,19 @@ public class UDPServer : MonoBehaviour
 
             listener = null;            
             Debug.Log("Thread closed");
+            TextBubble.text += "Thread closed\n";
             kill = false;
             socket.Close();
         }
 
-        
+        if (printping == true)
+        {
+            TextBubble.text += "Ping" + "\n";
+            printping = false;
+        }
+
+
+
     }
 
     void Listen()
@@ -61,8 +74,9 @@ public class UDPServer : MonoBehaviour
         {
             data = new byte[1024];
             int recv = socket.ReceiveFrom(data, ref remote);
-            Debug.Log("Message recieved form:" + remote.ToString());
-            Debug.Log(Encoding.ASCII.GetString(data, 0, recv));
+            Debug.Log("Message recieved form:" + remote.ToString());    
+            Debug.Log(Encoding.ASCII.GetString(data, 0, recv) );
+            
 
             int i = 0;
 
@@ -75,11 +89,14 @@ public class UDPServer : MonoBehaviour
                 Debug.Log(stringData);
                 i++;
                 Thread.Sleep(1000);
+                
+                printping = true;
 
                 if (i == 5)
                 {
                     RequestKillThread();
                 }
+               
             }
 
             Debug.Log("Disconnecting from server...");
