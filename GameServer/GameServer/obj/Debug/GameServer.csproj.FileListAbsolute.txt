@@ -1,7 +1,0 @@
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\bin\Debug\GameServer.exe.config
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\bin\Debug\GameServer.exe
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\bin\Debug\GameServer.pdb
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\obj\Debug\GameServer.csproj.AssemblyReference.cache
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\obj\Debug\GameServer.csproj.CoreCompileInputs.cache
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\obj\Debug\GameServer.exe
-C:\Users\polhc\Documents\GitHub\Networks-and-Online-Games\GameServer\GameServer\obj\Debug\GameServer.pdb
