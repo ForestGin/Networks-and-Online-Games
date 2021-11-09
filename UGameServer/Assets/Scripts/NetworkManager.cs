@@ -23,6 +23,9 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;//Limiting framerate bc we don't need it
+
         #if UNITY_EDITOR
         Debug.Log("Build the project to start the server!");
         #else
