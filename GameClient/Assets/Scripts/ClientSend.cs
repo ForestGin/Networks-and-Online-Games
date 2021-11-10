@@ -33,6 +33,18 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    /// <summary>Sends player chat message to the server.</summary>
+    /// <param name="_message"></param>
+    public static void ChatMessage(string _message)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.chatMessage))
+        {
+            _packet.Write(_message);
+
+            SendTCPData(_packet);
+        }
+    }
+
     /// <summary>Sends player input to the server.</summary>
     /// <param name="_inputs"></param>
     public static void PlayerMovement(bool[] _inputs)

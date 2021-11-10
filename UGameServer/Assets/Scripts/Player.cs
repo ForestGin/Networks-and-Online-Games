@@ -6,14 +6,19 @@ public class Player : MonoBehaviour
 {
     public int id;
     public string username;
+    //public Color color;
+    public string chatMessage;
+    private bool newMessage = false;
 
     private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
     private bool[] inputs;
 
-    public void Initialize(int _id, string _username)
+    public void Initialize(int _id, string _username/*, Color _color*/)
     {
         id = _id;
         username = _username;
+        //color = _color;
+        chatMessage = null;
 
         inputs = new bool[4];
     }
@@ -21,6 +26,11 @@ public class Player : MonoBehaviour
     /// <summary>Processes player input and moves the player.</summary>
     public void FixedUpdate()
     {
+        if (newMessage)
+        {
+            ServerSend.ChatMessage(this);
+            newMessage = false;   
+        }
         Vector2 _inputDirection = Vector2.zero;
         if (inputs[0])
         {
@@ -40,6 +50,12 @@ public class Player : MonoBehaviour
         }
 
         Move(_inputDirection);
+    }
+
+    public void SetChatMessage(string _message)
+    {
+        chatMessage = _message;
+        newMessage = true;
     }
 
     /// <summary>Calculates the player's desired movement direction and moves him.</summary>

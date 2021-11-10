@@ -17,6 +17,13 @@ public class ServerHandle
         Server.clients[_fromClient].SendIntoGame(_username);
     }
 
+    public static void ChatMessage(int _fromClient, Packet _packet)
+    {
+        string _message = _packet.ReadString();
+
+        Server.clients[_fromClient].player.SetChatMessage(_message); 
+    }
+
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
         bool[] _inputs = new bool[_packet.ReadInt()];

@@ -23,7 +23,14 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-
+    //public void NewChatMessaage(int _id, string _username, string _message /*Color _color*/)
+    //{
+    //    GameObject _player;
+    //    if (_id == localPlayerPrefab)
+    //    {
+    //        _player = Instantiate(localPlayerPrefab, _position, _rotation);
+    //    }
+    //}
     /// <summary>Spawns a player.</summary>
     /// <param name="_id">The player's ID.</param>
     /// <param name="_name">The player's name.</param>
@@ -43,6 +50,10 @@ public class GameManager : MonoBehaviour
 
         _player.GetComponent<PlayerManager>().id = _id;
         _player.GetComponent<PlayerManager>().username = _username;
+        //_player.GetComponent<PlayerManager>().color = _color;
         players.Add(_id, _player.GetComponent<PlayerManager>());
+
+        //"Welcome to the chat" message for local and others
+        _player.GetComponent<PlayerController>().SendChatMessageToServer("Welcome " + _username + " to the chat!!");
     }
 }

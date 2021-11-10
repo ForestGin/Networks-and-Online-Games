@@ -210,10 +210,10 @@ public class Client
 
     /// <summary>Sends the client into the game and informs other clients of the new player.</summary>
     /// <param name="_playerName">The username of the new player.</param>
-    public void SendIntoGame(string _playerName)
+    public void SendIntoGame(string _playerName /*Color _color*/)
     {
         player = NetworkManager.instance.InstantiatePlayer();
-        player.Initialize(id, _playerName);
+        player.Initialize(id, _playerName /*_color*/);
 
         // Send all players to the new player
         foreach (Client _client in Server.clients.Values)
