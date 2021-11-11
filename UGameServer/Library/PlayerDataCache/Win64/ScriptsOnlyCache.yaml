@@ -39,11 +39,11 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 3212}
+      Script: {instanceID: 3216}
     - Class: 114
-      Script: {instanceID: 3452}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 4004}
+      Script: {instanceID: 4008}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -139,7 +139,7 @@ ScriptsOnlyBuild:
     className: Text
   - hash:
       serializedVersion: 2
-      Hash: f1d735cc1a21c3704ab52568f4fbfcf8
+      Hash: 91d258529db2b5060a913f2afcea1a21
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner
     className: PlaymodeTestsController
@@ -349,7 +349,7 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: ba85da6794fbb935e4d382131d656369
+      Hash: ac0d678395f89388e0e1d7e75657f80c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player

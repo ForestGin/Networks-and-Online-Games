@@ -26,8 +26,11 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Message from server: {_msg}");
 
         GameObject _player = GameObject.Find("LocalPlayer");
-
-        _player.GetComponent<PlayerController>().HandleChatMessage(_msg);
+        
+        if (_player != null)
+        {
+            _player.GetComponent<PlayerController>().HandleChatMessage(_msg);
+        }
     }
 
     public static void SpawnPlayer(Packet _packet)

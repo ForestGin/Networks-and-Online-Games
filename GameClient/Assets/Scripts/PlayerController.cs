@@ -17,20 +17,22 @@ public class PlayerController : MonoBehaviour
     {
         chatText.text += _message;
     }
-    public void CheckInputBoxMessage(string _message)
+    public void CheckInputBoxMessage()
     {
         if (!Input.GetKeyDown(KeyCode.Return)) { return; }
+
+        string _message = inputField.text;
 
         if (string.IsNullOrWhiteSpace(_message)) { return; }
 
         SendChatMessageToServer(_message);
+
+        inputField.text = string.Empty;
     }
 
     public void SendChatMessageToServer(string _message)
     {
         ClientSend.ChatMessage(_message);
-
-        inputField.text = string.Empty;
     }
 
     /// <summary>Sends player input to the server.</summary>
