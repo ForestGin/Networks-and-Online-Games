@@ -92,9 +92,9 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
         {
             _packet.Write(_player.id);
-            _packet.Write(_player.name + ": ");
+            _packet.Write(_player.username + ": " + _player.chatMessage + "\n");
             //_packet.Write(_player.color);
-            _packet.Write(_player.chatMessage + "/n");
+            //_packet.Write(_player.chatMessage + "/n");
 
             SendTCPDataToAll(_packet);
         }

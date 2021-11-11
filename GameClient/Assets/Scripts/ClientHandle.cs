@@ -25,7 +25,7 @@ public class ClientHandle : MonoBehaviour
 
         Debug.Log($"Message from server: {_msg}");
 
-        GameObject _player = GameObject.Find("LocalPlayer");
+        GameObject _player = GameObject.Find("LocalPlayer(Clone)");
         
         if (_player != null)
         {
