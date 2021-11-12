@@ -24,6 +24,7 @@ public class Client
     public class TCP
     {
         public TcpClient socket;
+        public bool isConnected;
 
         private readonly int id;
         private NetworkStream stream;
@@ -51,6 +52,8 @@ public class Client
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
             ServerSend.Welcome(id, "Welcome to the server!");
+
+            isConnected = true;
         }
 
         /// <summary>Sends data to the client via TCP.</summary>
@@ -156,12 +159,15 @@ public class Client
             receivedData = null;
             receiveBuffer = null;
             socket = null;
+
+            isConnected = false;
         }
     }
 
     public class UDP
     {
         public IPEndPoint endPoint;
+        public bool isConnected;
 
         private int id;
 
@@ -175,6 +181,7 @@ public class Client
         public void Connect(IPEndPoint _endPoint)
         {
             endPoint = _endPoint;
+            isConnected = true;
         }
 
         /// <summary>Sends data to the client via UDP.</summary>
@@ -205,6 +212,7 @@ public class Client
         public void Disconnect()
         {
             endPoint = null;
+            isConnected = false;
         }
     }
 
@@ -240,12 +248,18 @@ public class Client
     /// <summary>Disconnects the client and stops all network traffic.</summary>
     private void Disconnect()
     {
-        Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
+        if (tcp.isConnected && udp.isConnected)
+        {
+            Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
 
-        UnityEngine.Object.Destroy(player.gameObject);
-        player = null;
+            //Sending Disconected message
+            ServerSend.ChatMessageFromServer(player.id, player.username + " has disconnected from the chat!!");
 
-        tcp.Disconnect();
-        udp.Disconnect();
+            UnityEngine.Object.Destroy(player.gameObject);
+            player = null;
+
+            tcp.Disconnect();
+            udp.Disconnect();
+        }
     }
 }

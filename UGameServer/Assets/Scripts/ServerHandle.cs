@@ -17,6 +17,15 @@ public class ServerHandle
         Server.clients[_fromClient].SendIntoGame(_username);
     }
 
+    public static void PlayerSpawned(int _fromClient, Packet _packet)
+    {
+        int _clientIdCheck = _packet.ReadInt();
+
+        Debug.Log($"{Server.clients[_fromClient].player.username} spawned successfully");
+
+        Server.clients[_fromClient].player.SetWelcomeMessage();
+    }
+
     public static void ChatMessage(int _fromClient, Packet _packet)
     {
         string _message = _packet.ReadString();

@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    public GameObject startMenu;
+    public GameObject connectMenu;
+    public GameObject disconnectMenu;
     public InputField usernameField;
 
     private void Awake()
@@ -26,8 +27,17 @@ public class UIManager : MonoBehaviour
     /// <summary>Attempts to connect to the server.</summary>
     public void ConnectToServer()
     {
-        startMenu.SetActive(false);
+        connectMenu.SetActive(false);
+        //disconnectMenu.SetActive(true);
         usernameField.interactable = false;
         Client.instance.ConnectToServer();
+    }
+
+    public void DisconnectFromServer()
+    {
+        //connectMenu.SetActive(true);
+        //disconnectMenu.SetActive(false);
+        //usernameField.interactable = true;
+        //Client.instance.Disconnect();
     }
 }

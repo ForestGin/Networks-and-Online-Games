@@ -87,18 +87,44 @@ public class ServerSend
         }
     }
 
-    public static void ChatMessage(Player _player)
+    public static void ChatMessageFromPlayer(Player _player)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.chatMessage))
+        using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromPlayer))
         {
             _packet.Write(_player.id);
-            _packet.Write(_player.username + ": " + _player.chatMessage + "\n");
+            _packet.Write(_player.chatMessage + "\n");
             //_packet.Write(_player.color);
             //_packet.Write(_player.chatMessage + "/n");
 
             SendTCPDataToAll(_packet);
         }
     }
+
+    public static void ChatMessageFromServer(string _message)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromServer))
+        {
+            _packet.Write("Server: " + _message + "\n");
+            //_packet.Write(_player.color);
+            //_packet.Write(_player.chatMessage + "/n");
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void ChatMessageFromServer(int _exceptClient, string _message)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromServer))
+        {
+            _packet.Write("Server: " + _message + "\n");
+            //_packet.Write(_player.color);
+            //_packet.Write(_player.chatMessage + "/n");
+
+            SendTCPDataToAll(_exceptClient, _packet);
+        }
+    }
+
+
     /// <summary>Tells a client to spawn a player.</summary>
     /// <param name="_toClient">The client that should spawn the player.</param>
     /// <param name="_player">The player to spawn.</param>

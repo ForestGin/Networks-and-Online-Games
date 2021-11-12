@@ -28,9 +28,10 @@ public class Player : MonoBehaviour
     {
         if (newMessage)
         {
-            ServerSend.ChatMessage(this);
+            ServerSend.ChatMessageFromPlayer(this);
             newMessage = false;   
         }
+
         Vector2 _inputDirection = Vector2.zero;
         if (inputs[0])
         {
@@ -54,7 +55,13 @@ public class Player : MonoBehaviour
 
     public void SetChatMessage(string _message)
     {
-        chatMessage = _message;
+        chatMessage = username + ": " + _message;
+        newMessage = true;
+    }
+
+    public void SetWelcomeMessage()
+    {
+        chatMessage = "Welcome " + username + " to the chat!!";
         newMessage = true;
     }
 

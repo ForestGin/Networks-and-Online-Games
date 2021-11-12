@@ -23,6 +23,15 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+    //private void Update()
+    //{
+    //    if (Input.GetKey(KeyCode.Escape))
+    //    {
+    //        Client.instance.Disconnect();
+    //    }
+    //}
+
     /// <summary>Spawns a player.</summary>
     /// <param name="_id">The player's ID.</param>
     /// <param name="_name">The player's name.</param>
@@ -44,11 +53,5 @@ public class GameManager : MonoBehaviour
         _player.GetComponent<PlayerManager>().username = _username;
         //_player.GetComponent<PlayerManager>().color = _color;
         players.Add(_id, _player.GetComponent<PlayerManager>());
-
-        //"Welcome to the chat" message for local and others
-        //if (_id == Client.instance.myId)
-        //{
-        //    _player.GetComponent<PlayerController>().SendChatMessageToServer("Welcome " + _username + " to the chat!!");
-        //}
     }
 }

@@ -18,15 +18,29 @@ public class ClientHandle : MonoBehaviour
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 
-    public static void ChatMessage(Packet _packet)
+    public static void ChatMessageFromPlayer(Packet _packet)
     {
         int _id = _packet.ReadInt();
         string _msg = _packet.ReadString();
 
-        Debug.Log($"Message from server: {_msg}");
+        Debug.Log($"Chat message recieved: {_msg}");
 
         GameObject _player = GameObject.Find("LocalPlayer(Clone)");
         
+        if (_player != null)
+        {
+            _player.GetComponent<PlayerController>().HandleChatMessage(_msg);
+        }
+    }
+
+    public static void ChatMessageFromServer(Packet _packet)
+    {
+        string _msg = _packet.ReadString();
+
+        Debug.Log($"Server chat message recieved: {_msg}");
+
+        GameObject _player = GameObject.Find("LocalPlayer(Clone)");
+
         if (_player != null)
         {
             _player.GetComponent<PlayerController>().HandleChatMessage(_msg);

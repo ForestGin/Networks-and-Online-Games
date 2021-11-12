@@ -8,8 +8,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private TMP_Text chatText = null;
     [SerializeField] private TMP_InputField inputField = null;
 
+    private bool spawned = false;
+
     private void FixedUpdate()
     {
+        if (!spawned)
+        {
+            ClientSend.PlayerSpawned();
+            spawned = true;
+        }
+
         SendInputToServer();
     }
 

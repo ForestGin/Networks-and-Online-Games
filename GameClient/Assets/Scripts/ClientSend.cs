@@ -33,6 +33,16 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void PlayerSpawned()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerSpawned))
+        {
+            _packet.Write(Client.instance.myId);
+
+            SendTCPData(_packet);
+        }
+    }
+
     /// <summary>Sends player chat message to the server.</summary>
     /// <param name="_message"></param>
     public static void ChatMessage(string _message)

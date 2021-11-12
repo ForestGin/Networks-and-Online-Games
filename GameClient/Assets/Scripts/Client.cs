@@ -301,13 +301,14 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, ClientHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
-            { (int)ServerPackets.chatMessage, ClientHandle.ChatMessage },
+            { (int)ServerPackets.chatMessageFromPlayer, ClientHandle.ChatMessageFromPlayer },
+            { (int)ServerPackets.chatMessageFromServer, ClientHandle.ChatMessageFromServer },
         };
         Debug.Log("Initialized packets.");
     }
 
     /// <summary>Disconnects from the server and stops all network traffic.</summary>
-    private void Disconnect()
+    public void Disconnect()
     {
         if (isConnected)
         {
