@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour
     //[SerializeField] private GameObject chatUI = null;
     [SerializeField] private TMP_Text chatText = null;
     [SerializeField] private TMP_InputField inputField = null;
+    [SerializeField] private TMP_Text playerName = null;
+    [SerializeField] private GameObject playerModel = null;
+
 
     private bool spawned = false;
 
@@ -14,8 +17,21 @@ public class PlayerController : MonoBehaviour
     {
         if (!spawned)
         {
+            //Checking because the chat UI depends on the player GO so until the player spawns it cannot recieve messages
             ClientSend.PlayerSpawned();
             spawned = true;
+
+            //Checking if the player is local one
+            if (gameObject.GetComponent<PlayerManager>().islocal)
+            {
+                //Setting Name Tag
+                playerName.text = gameObject.GetComponent<PlayerManager>().username;
+
+                //Creating a material and setting its color
+                Renderer rend = playerModel.GetComponent<Renderer>();
+                rend.material = new Material(Shader.Find("Standard"));
+                rend.material.color = gameObject.GetComponent<PlayerManager>().color;
+            }   
         }
 
         SendInputToServer();
@@ -25,6 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         chatText.text += _message;
     }
+
     public void CheckInputBoxMessage()
     {
         if (!Input.GetKeyDown(KeyCode.Return)) { return; }

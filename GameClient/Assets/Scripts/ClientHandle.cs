@@ -51,10 +51,11 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
+        Color _color = _packet.ReadColor(); 
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        GameManager.instance.SpawnPlayer(_id, _username, _color, _position, _rotation);
     }
 
     public static void PlayerPosition(Packet _packet)

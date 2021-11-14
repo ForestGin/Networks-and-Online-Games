@@ -8,13 +8,14 @@ public class ServerHandle
     {
         int _clientIdCheck = _packet.ReadInt();
         string _username = _packet.ReadString();
+        Color _color = _packet.ReadColor();
 
         Debug.Log($"{Server.clients[_fromClient].tcp.socket.Client.RemoteEndPoint} connected successfully and is now player {_fromClient}.");
         if (_fromClient != _clientIdCheck)
         {
             Debug.Log($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientIdCheck})!");
         }
-        Server.clients[_fromClient].SendIntoGame(_username);
+        Server.clients[_fromClient].SendIntoGame(_username, _color);
     }
 
     public static void PlayerSpawned(int _fromClient, Packet _packet)
@@ -24,6 +25,7 @@ public class ServerHandle
         Debug.Log($"{Server.clients[_fromClient].player.username} spawned successfully");
 
         Server.clients[_fromClient].player.SetWelcomeMessage();
+        Server.clients[_fromClient].player.SetWelcomeMessage(_fromClient);
     }
 
     public static void ChatMessage(int _fromClient, Packet _packet)

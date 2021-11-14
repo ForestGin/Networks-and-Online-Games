@@ -13,6 +13,7 @@ public class Client : MonoBehaviour
     public string ip = "127.0.0.1";
     public int port = 26950;
     public int myId = 0;
+
     public TCP tcp;
     public UDP udp;
 
@@ -312,6 +313,7 @@ public class Client : MonoBehaviour
     {
         if (isConnected)
         {
+            ClientSend.ChatMessage("Disconnected from the chat.");
             isConnected = false;
             tcp.socket.Close();
             udp.socket.Close();

@@ -6,18 +6,18 @@ public class Player : MonoBehaviour
 {
     public int id;
     public string username;
-    //public Color color;
+    public Color color;
     public string chatMessage;
-    private bool newMessage = false;
+    //private bool newMessage = false;
 
     private float moveSpeed = 5f / Constants.TICKS_PER_SEC;
     private bool[] inputs;
 
-    public void Initialize(int _id, string _username/*, Color _color*/)
+    public void Initialize(int _id, string _username, Color _color)
     {
         id = _id;
         username = _username;
-        //color = _color;
+        color = _color;
         chatMessage = null;
 
         inputs = new bool[4];
@@ -26,12 +26,6 @@ public class Player : MonoBehaviour
     /// <summary>Processes player input and moves the player.</summary>
     public void FixedUpdate()
     {
-        if (newMessage)
-        {
-            ServerSend.ChatMessageFromPlayer(this);
-            newMessage = false;   
-        }
-
         Vector2 _inputDirection = Vector2.zero;
         if (inputs[0])
         {
@@ -55,14 +49,24 @@ public class Player : MonoBehaviour
 
     public void SetChatMessage(string _message)
     {
-        chatMessage = username + ": " + _message;
-        newMessage = true;
+        chatMessage = ColorText(color, username + ": ") + _message;
+        ServerSend.ChatMessageFromPlayer(this);
     }
 
     public void SetWelcomeMessage()
     {
-        chatMessage = "Welcome " + username + " to the chat!!";
-        newMessage = true;
+        chatMessage = "Welcome " + ColorText(color, username) + " to the chat!!";
+        ServerSend.ChatMessageFromPlayer(id, this);
+    }
+
+    public void SetWelcomeMessage(int _id)
+    {
+        chatMessage = 
+            "Welcome to the chat!!\n" +
+            "Your username and color is: " + ColorText(color, username) + "\n"/* +
+            "You can type \"\\help\" to see the commands list."*/;
+
+        ServerSend.ChatMessageWhisper(_id, this);
     }
 
     /// <summary>Calculates the player's desired movement direction and moves him.</summary>
@@ -83,5 +87,13 @@ public class Player : MonoBehaviour
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+    }
+
+    public string ColorText(Color _color, string _text)
+    {
+        string _colortohexstring = ColorUtility.ToHtmlStringRGB(color); //converts the color variable into a string so then I can color code the text. 
+        string _coloredText  = "<color=#" + _colortohexstring + ">" + _text + "</color>";
+
+        return _coloredText;
     }
 }

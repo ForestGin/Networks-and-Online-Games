@@ -182,6 +182,16 @@ public class Packet : IDisposable
         Write(_value.z);
         Write(_value.w);
     }
+
+    /// <summary>Adds a Color to the packet.</summary>
+    /// <param name="_value">The Quaternion to add.</param>
+    public void Write(Color _value)
+    {
+        Write(_value.r);
+        Write(_value.g);
+        Write(_value.b);
+        Write(_value.a);
+    }
     #endregion
 
     #region Read Data
@@ -366,6 +376,13 @@ public class Packet : IDisposable
     public Quaternion ReadQuaternion(bool _moveReadPos = true)
     {
         return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+
+    /// <summary>Reads a Color from the packet.</summary>
+    /// <param name="_readcolor">Whether or not to move the buffer's read position.</param>
+    public Color ReadColor(bool _readcolor = true)
+    {
+        return new Color(ReadFloat(_readcolor), ReadFloat(_readcolor), ReadFloat(_readcolor), ReadFloat(_readcolor));
     }
     #endregion
 

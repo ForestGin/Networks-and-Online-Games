@@ -93,10 +93,30 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.chatMessage + "\n");
-            //_packet.Write(_player.color);
-            //_packet.Write(_player.chatMessage + "/n");
 
             SendTCPDataToAll(_packet);
+        }
+    }
+
+    public static void ChatMessageFromPlayer(int _exceptClient, Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromPlayer))
+        {
+            _packet.Write(_player.id);
+            _packet.Write(_player.chatMessage + "\n");
+
+            SendTCPDataToAll(_exceptClient, _packet);
+        }
+    }
+
+    public static void ChatMessageWhisper(int _targetClient, Player _player)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromPlayer))
+        {
+            _packet.Write(_player.id);
+            _packet.Write(_player.chatMessage + "\n");
+
+            SendTCPData(_targetClient, _packet);
         }
     }
 
@@ -105,8 +125,6 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromServer))
         {
             _packet.Write("Server: " + _message + "\n");
-            //_packet.Write(_player.color);
-            //_packet.Write(_player.chatMessage + "/n");
 
             SendTCPDataToAll(_packet);
         }
@@ -117,8 +135,6 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.chatMessageFromServer))
         {
             _packet.Write("Server: " + _message + "\n");
-            //_packet.Write(_player.color);
-            //_packet.Write(_player.chatMessage + "/n");
 
             SendTCPDataToAll(_exceptClient, _packet);
         }
@@ -134,6 +150,7 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.username);
+            _packet.Write(_player.color);
             _packet.Write(_player.transform.position);
             _packet.Write(_player.transform.rotation);
 

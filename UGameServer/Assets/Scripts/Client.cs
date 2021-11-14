@@ -218,10 +218,10 @@ public class Client
 
     /// <summary>Sends the client into the game and informs other clients of the new player.</summary>
     /// <param name="_playerName">The username of the new player.</param>
-    public void SendIntoGame(string _playerName /*Color _color*/)
+    public void SendIntoGame(string _playerName, Color _color)
     {
         player = NetworkManager.instance.InstantiatePlayer();
-        player.Initialize(id, _playerName /*_color*/);
+        player.Initialize(id, _playerName, _color);
 
         // Send all players to the new player
         foreach (Client _client in Server.clients.Values)
@@ -250,13 +250,10 @@ public class Client
     {
         if (tcp.isConnected && udp.isConnected)
         {
-            Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
-
-            //Sending Disconected message
-            ServerSend.ChatMessageFromServer(player.id, player.username + " has disconnected from the chat!!");
-
             UnityEngine.Object.Destroy(player.gameObject);
             player = null;
+           
+            Debug.Log($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
 
             tcp.Disconnect();
             udp.Disconnect();

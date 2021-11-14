@@ -6,5 +6,6 @@ public class PlayerManager : MonoBehaviour
 {
     public int id;
     public string username;
-    //public Color color;
+    public Color color;
+    public bool islocal;
 }
