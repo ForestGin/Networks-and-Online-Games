@@ -1,0 +1,28 @@
+Pol Bosch & Oscar Larios
+
+Link to the folder: https://drive.google.com/drive/folders/1W9Vo9jKXfYdNCTF9f1PBKetS48suqikG?usp=sharing
+
+There are 2 unity packages, for the server and client unity projects.
+To test the chat: 
+- First "Build and Run" or hit play on editor of the GameServer unity project.
+
+- Then to have multiple clients you can duplicate the project or build, we usually "Build and run" 
+and then hit play on the editor so we have 2 clients quickly.
+
+- Then enter the username in the input box and hit connect.
+
+- And now you can type anything in the input box and hit enter to send the chat message.
+
+--------------------------------------------------------
+
+Known Bugs and difficulties:
+
+- The server does not erase correctly the serverside gameobject that represents the player(found just 
+before delivering).
+
+- The project was aiming to have the Capsules that represent the players to wander around thus 
+simulating a chat room (each with its name tag and assigned color) but lack of time and bugs
+made it impossible for this delivery. 
+
+-The base classes and functions are made using Tom Weiland's as a reference.
+Link of the Youtube playlist here: https://www.youtube.com/playlist?list=PLXkn83W0QkfnqsK8I0RAz5AbUxfg3bOQ5
